@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "reflection-agent"
+version = "0.1.0"
+description = ""
+authors = ["Anantvir Singh"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-dotenv = "^1.0.1"
+black = "^24.8.0"
+isort = "^5.13.2"
+langchain = "^0.2.14"
+langchain-openai = "^0.1.22"
+langgraph = "^0.2.7"
+grandalf = "^0.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
