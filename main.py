@@ -1,3 +1,8 @@
+"""
+This code is from a Udemy course for Langgraph from where I learned reflection agents.
+Code credits go tot : "LangGraph- Develop LLM powered agents with LangGraph", Instrcutor :  Eden Marco
+"""
+
 from dotenv import load_dotenv
 from typing import List, Sequence
 from langchain_core.messages import BaseMessage, HumanMessage
