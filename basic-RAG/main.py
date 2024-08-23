@@ -35,7 +35,16 @@ for chunk in rag_chain.stream("What is Task Decomposition?"):
 
 
 
+"""
+The above chain is already implemented by Langchain for us through the function create_stuff_documents_chain()
 
+Two convenience functions that create pre constructed retrieval chains for us are
+
+1. create_stuff_documents_chain()
+2. create_retrieval_chain()
+
+Details : https://python.langchain.com/v0.2/docs/tutorials/rag/#retrieval-and-generation-retrieve
+"""
 
 
 
