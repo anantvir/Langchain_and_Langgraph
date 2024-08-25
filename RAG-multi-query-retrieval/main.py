@@ -37,7 +37,7 @@ final_multi_query_rag_chain = (
     | StrOutputParser()
 )
 
-print(final_multi_query_rag_chain.invoke({"question" : user_question}))
+print(final_multi_query_rag_chain.invoke({"question" : user_question})) 
 
 
 
