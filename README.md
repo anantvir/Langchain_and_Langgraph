@@ -20,3 +20,11 @@
 ![1](./screenshots/RAG_fusion.jpeg)
 
 ![2](./screenshots/RAG_fusion_2.png)
+
+### 3. Query Decomposition
+
+#### Source : https://github.com/langchain-ai/rag-from-scratch/blob/main/rag_from_scratch_5_to_9.ipynb
+
+##### Answer current question using retrieval and any previous Q & A stored in memory
+
+![](./screenshots/decomposition.png)
