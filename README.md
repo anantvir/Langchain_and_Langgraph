@@ -39,3 +39,19 @@
 ![](./screenshots/stepback.png)
 ![](./screenshots/stepback_example.jpeg)
 
+### 5. Query Translation (HyDE - Hypothetical Document Embeddings)
+
+#### Source : https://github.com/langchain-ai/rag-from-scratch/blob/main/rag_from_scratch_5_to_9.ipynb , https://arxiv.org/pdf/2212.10496
+
+#### 
+1. HyDE is an embedding technique that takes queries, generates a hypothetical answer, and then embeds that generated document and uses that as the final example.
+2. Ask the LLM to write a paragraph/paper for the user query (expand on that from LLM parametric knowledge)
+3. Embedd that paragraph
+4. Compare the paragraph to other embeddings in same space and retrieve most similar matches
+5. Feed these matches to final context to generate final response
+
+#### Idea is that expanded paragraph from user query if embedded in the same space will capture context and key information related to user query. So its better to embedd this and use it for retrieval than just using user query
+
+![](./screenshots/hyde1.png)
+![](./screenshots/hyde2.jpeg)
+
