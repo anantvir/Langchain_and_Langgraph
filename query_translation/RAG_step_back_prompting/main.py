@@ -19,6 +19,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain.prompts import ChatPromptTemplate
 from operator import itemgetter 
+from RAG_step_back_prompting import chain_step_back_question_generator
 
 load_dotenv()
 
@@ -27,4 +28,36 @@ load_dotenv()
 llm = ChatOpenAI(model="gpt-4o-mini")
 
 user_question = "What are the main components of an LLM-powered autonomous agent system?"
+
+# Response prompt 
+response_prompt_template = """You are an expert of world knowledge. I am going to ask you a question. Your response should be comprehensive and not contradicted with the following context if they are relevant. Otherwise, ignore them if they are not relevant.
+
+                            # {normal_context}
+                            # {step_back_context}
+
+                            # Original Question: {question}
+                            # Answer:"""
+
+prompt_final_response = ChatPromptTemplate.from_template(response_prompt_template)
+
+chain_final_response = (
+    {
+        # Get context for actual question asked by user
+        "normal_context" : itemgetter("question") | retriever, 
+
+        # Get context for step back question we generated(high level concepts)
+        "step_back_context" : chain_step_back_question_generator | retriever ,
+
+        # Actual user question
+        "question" : itemgetter("question") 
+    }
+    | prompt_final_response
+    | llm
+    | StrOutputParser()
+)
+
+final_response = chain_final_response.invoke({"question" : user_question})
+
+print(final_response)
+
 

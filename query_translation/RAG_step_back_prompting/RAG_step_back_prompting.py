@@ -50,10 +50,10 @@ chain_step_back_question_generator = (
     | StrOutputParser()
 )
 
-user_question = "What is task decomposition for LLM agents?"
+# user_question = "What is task decomposition for LLM agents?"
 
-res = chain_step_back_question_generator.invoke({"question" : user_question})
-print(res)
+# res = chain_step_back_question_generator.invoke({"question" : user_question})
+# print(res)
 
 
 
