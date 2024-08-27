@@ -37,4 +37,5 @@
 ##### Ask model to step back and generate a question asking about more abstract/high level concepts. Pass that as additional context along with the context retrieved for actual customer query
 
 ![](./screenshots/stepback.png)
+![](./screenshots/stepback_example.jpeg)
 
