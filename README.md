@@ -1,6 +1,8 @@
 # Langchain and Langraph
 
-### Every week I spend some time learning new concepts and latest trends in applied GenAI and get hands on. I then use these learnings to solve real life customer problems at work. This repo. is all about Langchain, Langgraph, Agentic AI etc. I have tried to give credits where required. Incase I missed it, its not intentional.
+#### Every week I spend some time learning new concepts and latest trends in applied GenAI and get hands on. I then use these learnings to solve real life customer problems at work. This repo. is all about Langchain, Langgraph, Agentic AI etc. Goal is to break down different components of a RAG pipeline and how each component can be optimized. I cover different techniques to optimize these components covered in Langchain docs, blogs or external sources. 
+
+I have tried to give credits where required. Incase I missed it, its not intentional.
 
 ## RAG Landscape
 
