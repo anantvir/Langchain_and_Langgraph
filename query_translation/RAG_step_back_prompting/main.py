@@ -18,7 +18,7 @@ from chunking import retriever
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain.prompts import ChatPromptTemplate
-from operator import itemgetter
+from operator import itemgetter 
 
 load_dotenv()
 
