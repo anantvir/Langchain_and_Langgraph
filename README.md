@@ -1,5 +1,7 @@
 # Langchain and Langraph
 
+### Every week I spend some time learning new concepts and latest trends in applied GenAI and get hands on. I then use these learnings to solve real life customer problems at work. This repo. is all about Langchain, Langgraph, Agentic AI etc. I have tried to give credits where required. Incase I missed it, its not intentional.
+
 ## RAG Landscape
 
 ### Query Translation (Multi Query Retrieval)
