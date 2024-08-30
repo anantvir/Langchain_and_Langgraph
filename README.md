@@ -59,3 +59,20 @@ I have tried to give credits where required. Incase I missed it, its not intenti
 ![](./screenshots/hyde1.png)
 ![](./screenshots/hyde2.jpeg)
 
+### 6. Query Construction (Text-to-SQL)
+
+#### Source : https://python.langchain.com/v0.2/docs/tutorials/sql_qa/
+
+##### 
+Model converts user query to SQL. This can be done through both agentic and non agentic approach.
+
+**Why non agentic does not work ?** -> If a user asks "Hello, how are you ?", our model will try to convert this into a SQL query which obviously will not work. To handle these scenarios,
+We need reasoning capabilities of LLMs to decide what steps/actions to take next
+
+**Why agentic ?** : To solve above problem, we ask the LLM to reason what we need to do next. Is the user having a normal conversation which does not require text-to-SQL ? Keep having normal conversation.
+If during reasoning, LLM finds that it needs to query a database to answer user query, then it returns the tool_calls in its response and we can execute that tool to query the db. So this agentic
+approach is more suitable for real world use cases.
+
+![](./screenshots/text_to_sql.png)
+
+
