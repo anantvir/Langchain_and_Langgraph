@@ -1,6 +1,6 @@
 # Langchain and Langraph
 
-#### Every week I spend some time learning new concepts and latest trends in applied GenAI and get hands on. I then use these learnings to solve real life customer problems at work. This repo. is all about Langchain, Langgraph, Agentic AI etc. Goal is to break down different components of a RAG pipeline and how each component and thus entire pipeline can be optimized. I cover different techniques to optimize these components covered in Langchain docs, blogs or external sources. 
+#### Every week I spend some time learning new concepts and latest trends in applied GenAI and get hands on. I then use these learnings to solve real life customer problems at work. This repository is all about Langchain, Langgraph, Agentic AI etc. Goal is to break down different components of a RAG pipeline and how each component and thus entire pipeline can be optimized. I cover different techniques to optimize these components covered in Langchain docs, blogs or external sources. 
 
 I have tried to give credits where required. Incase I missed it, its not intentional.
 
@@ -69,9 +69,8 @@ Model converts user query to SQL. This can be done through both agentic and non 
 **Why non agentic does not work ?** -> If a user asks "Hello, how are you ?", our model will try to convert this into a SQL query which obviously will not work. To handle these scenarios,
 We need reasoning capabilities of LLMs to decide what steps/actions to take next
 
-**Why agentic ?** : To solve above problem, we ask the LLM to reason what we need to do next. Is the user having a normal conversation which does not require text-to-SQL ? Keep having normal conversation.
-If during reasoning, LLM finds that it needs to query a database to answer user query, then it returns the tool_calls in its response and we can execute that tool to query the db. So this agentic
-approach is more suitable for real world use cases.
+**Why agentic ?** : To solve above problem, we ask the LLM to reason what we need to do next. If user is having a normal conversation which does not require text-to-SQL, keep having normal conversation.
+If during reasoning, LLM finds that it needs to query a database to answer user query, then it returns the tools we should execute in "tool_calls" argument in API response and we can execute that tool to query the db. So this agentic approach is more suitable for real world use-cases.
 
 ![](./screenshots/text_to_sql.png)
 
