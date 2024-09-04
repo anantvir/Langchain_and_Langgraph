@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "colbert"
+version = "0.1.0"
+description = ""
+authors = ["Anantvir"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-dotenv = "^1.0.1"
+ragatouille = "^0.0.8.post4"
+langchain-openai = "^0.1.23"
+langchain = "^0.2.16"
+langchain-community = "^0.2.16"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
