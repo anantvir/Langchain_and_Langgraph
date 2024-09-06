@@ -6,6 +6,7 @@ from langchain_openai import OpenAI
 from dotenv import load_dotenv
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
+from langchain.retrievers.document_compressors import LLMChainFilter
 
 load_dotenv()
 

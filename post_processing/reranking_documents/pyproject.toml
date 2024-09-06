@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "reranking documents"
+version = "0.1.0"
+description = ""
+authors = ["Anantvir"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+cohere = "^5.9.1"
+faiss-cpu = "^1.8.0.post1"
+langchain-cohere = "^0.2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
