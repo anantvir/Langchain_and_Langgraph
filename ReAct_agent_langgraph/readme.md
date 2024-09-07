@@ -9,4 +9,5 @@ ReAct is a first generation agent. This field is rapidly changing and ReAct agen
 
 ### Langgraph for this ReAct agent
 
-![](./ReAct_agent_langgraph/react_graph.png)
+
+![](./react_graph.png)
