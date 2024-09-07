@@ -23,8 +23,10 @@ tavily_tool = TavilySearchResults(api_wrapper=search, max_results=5)
 tool_executor = ToolExecutor([tavily_tool])
 
 def execute_tools(state: List[BaseMessage]) -> List[ToolMessage]:
+    # We assume last message is always AIMessage containing list of tools that need to be called
     tool_invocation : AIMessage = state[-1]
     
+    # Converts the AIMessage to JSON(dictionary) : return type is List
     parsed_tool_calls = parser.invoke(tool_invocation)
 
     ids = []
