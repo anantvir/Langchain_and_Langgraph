@@ -7,8 +7,13 @@
 3. For relevant docs, we feeed them as context to LLM to generate final answer
 4. If there are some irrelevant docs, then we trigger web search to get additional context that is fed to LLM as context along with relevant docs
 
+#### Corrective RAG Graph from Langgraph
 
+![](./corrective_rag_graph.png)
 
+#### Corrective RAG Flow
+
+![](./crag.png)
 
 
 
