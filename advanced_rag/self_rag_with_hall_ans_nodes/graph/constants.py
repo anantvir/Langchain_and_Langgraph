@@ -1,0 +1,6 @@
+RETRIEVE = "retrieve"
+GRADE_DOCUMENTS = "grade_documents"
+GENERATE = "generate"
+WEBSEARCH = "websearch"
+HALLUCINATION = "hallucination"
+GENERATION_ANSWERS_QUESTION = "generation_answers_question"
