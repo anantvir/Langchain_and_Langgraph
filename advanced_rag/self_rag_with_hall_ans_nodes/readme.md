@@ -12,7 +12,7 @@
 
 #### Self RAG Graph from Langgraph
 
-![](./self_rag_graph.png)
+![](./self_rag_multinode_graph.png)
 
 #### Self RAG Flow
 
