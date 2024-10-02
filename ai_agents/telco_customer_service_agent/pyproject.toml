@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "telco-customer-service-agent"
+version = "0.1.0"
+description = ""
+authors = ["Anantvir Singh"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+chroma = "^0.2.0"
+langchain-core = "^0.3.7"
+langchain = "^0.3.1"
+langgraph = "^0.2.32"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

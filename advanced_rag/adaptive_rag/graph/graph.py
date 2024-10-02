@@ -95,6 +95,6 @@ workflow.add_conditional_edges(
 )
 app = workflow.compile()
 
-app.get_graph().draw_mermaid_png(output_file_path="/Users/anantvirsingh/Desktop/langchain-and-langgraph/advanced_rag/adaptive_rag/adaptive_rag_graph.png")
+#app.get_graph().draw_mermaid_png(output_file_path="/Users/anantvirsingh/Desktop/langchain-and-langgraph/advanced_rag/adaptive_rag/adaptive_rag_graph.png")
 
 print("-------- Created Langgraph diagram in directory --------")

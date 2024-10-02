@@ -17,6 +17,6 @@ class GraphState(TypedDict):
     question: str
     generation: str
     web_search: bool
-    documents: List[str] = None
+    documents: List[str]
     is_hallucinating : bool
     answers_question : bool

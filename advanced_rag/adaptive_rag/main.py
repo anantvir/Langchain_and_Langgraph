@@ -12,7 +12,7 @@ load_dotenv()
 
 if __name__ == "__main__":
     print("Starting Self RAG ...")
-    print(app.invoke(input={"question" : "How to make pizza ?", "documents" : None}))
+    print(app.invoke(input={"question" : "What is agent memory ?", "documents" : None}))
 
 
 

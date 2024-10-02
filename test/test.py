@@ -6,21 +6,16 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts.prompt import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.document_loaders import PyPDFLoader
+from langchain import hub
+from langchain.agents import AgentExecutor, create_react_agent
+from langchain_community.tools.tavily_search import TavilySearchResults
+from langchain_openai import OpenAI
+from langgraph.graph.message import add_messages
 
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-4o-mini")
-output_parser = StrOutputParser()
-
-prompt_template = PromptTemplate.from_template("Tell me about {input} in 50 words")
-
-
-chain = prompt_template | llm | output_parser
-
-# for chunk in chain.stream({"input" : "Bhagat Singh"}):
-#     print(chunk, end="", flush=True)
-
-
+# Choose the LLM to use
+llm = OpenAI()
 
 
 

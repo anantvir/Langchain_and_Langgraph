@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "langchain-and-langgraph"
+version = "0.1.0"
+description = ""
+authors = ["Anantvir Singh"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langchain = "^0.2.16"
+langchain-community = "^0.2.16"
+langgraph = "^0.2.19"
+python-dotenv = "^1.0.1"
+black = "^24.8.0"
+isort = "^5.13.2"
+langgraph-checkpoint-sqlite = "^1.0.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
