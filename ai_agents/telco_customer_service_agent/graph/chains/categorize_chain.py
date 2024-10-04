@@ -37,7 +37,7 @@ categorization_prompt = ChatPromptTemplate.from_template(system)
 
 categorization_chain = categorization_prompt | llm
 
-print(categorization_chain.invoke({"query" : "Is iphone 16 available yet ?"}).content)
+#print(categorization_chain.invoke({"query" : "Is iphone 16 available yet ?"}).content)
 
 
 

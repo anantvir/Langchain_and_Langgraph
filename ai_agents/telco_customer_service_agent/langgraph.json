@@ -1,0 +1,7 @@
+{
+    "graphs": {
+      "agent": "./graph/graph.py:entry_flow"
+    },
+    "env": ".env",
+    "dependencies": ["."]
+  }
