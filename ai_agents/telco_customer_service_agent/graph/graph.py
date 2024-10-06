@@ -13,6 +13,14 @@ from constants import (
                 CATEGORIZE, SENTIMENT, PHONE_REASON, PHONE_ACT, PHONE_REACT_AGENT,
                 INTERNET_REASON, INTERNET_ACT, INTERNET_REACT_AGENT,
                 IOT_REASON, IOT_ACT, IOT_REACT_AGENT)
+import sqlite3
+from langgraph.checkpoint.sqlite import SqliteSaver
+
+db_path = "/Users/anantvirsingh/Desktop/langchain-and-langgraph/ai_agents/telco_customer_service_agent/telco_agent_db.db"
+connection = sqlite3.connect(db_path, check_same_thread=False)
+
+# Set checkpointer(memory) for our graph
+memory = SqliteSaver(connection)
 
 def should_phone_reasoning_continue(state : PhoneGraphState):
     if isinstance(state["phone_agent_outcome"], AgentAction):
@@ -92,7 +100,7 @@ entry_graph.add_conditional_edges(SENTIMENT,
 entry_graph.add_edge(INTERNET_REACT_AGENT, END)
 entry_graph.add_edge(IOT_REACT_AGENT, END)
 
-entry_flow = entry_graph.compile()
+entry_flow = entry_graph.compile(checkpointer = memory)
 
 entry_flow.get_graph(xray=1).draw_mermaid_png(output_file_path="/Users/anantvirsingh/Desktop/langchain-and-langgraph/ai_agents/telco_customer_service_agent/graph2.png")
 #print(phone_subgraph.compile().get_graph().draw_mermaid())

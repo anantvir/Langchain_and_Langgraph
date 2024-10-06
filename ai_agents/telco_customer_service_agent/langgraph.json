@@ -1,7 +1,7 @@
 {
     "graphs": {
-      "agent": "./graph/graph.py:entry_flow"
+      "agent": "./telco_customer_service_agent/graph/graph.py:entry_flow"
     },
     "env": ".env",
-    "dependencies": ["."]
+    "dependencies": ["./telco_customer_service_agent"]
   }
