@@ -3,9 +3,9 @@ from langchain_core.runnables.config import RunnableConfig
 
 # Assumption : User was authenticated before entering chatbot, so we have access to User ID
 @tool
-def access_crm_tool(config : RunnableConfig) -> str:
+def access_crm_tool(tool_input, config : RunnableConfig) -> str:
     """
-    use customer ID to lookup customer detail, past tickets, resolutions, products they own etc. from CRM system
+    This tool is called when you want to lookup customer detail, past tickets, resolutions, products they own etc. from CRM system. Tool called with input 'customerId'
     """
     userId = config.get("configurable", {}).get("user_id")
     # Get user record from CRM using userId
