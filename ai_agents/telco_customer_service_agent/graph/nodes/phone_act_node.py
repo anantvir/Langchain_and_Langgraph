@@ -15,9 +15,8 @@ def execute_phone_tools(state : PhoneGraphState):
     # In this case PHONE_ACT node will be executed only if state["agent_outcome"] is instance of AgentAction
     agent_action = state["phone_agent_outcome"]
 
+    # Only run this node for specific tools which dont require HITL. 
+    # For HITL, we conditionally go to phone_hitl_node 
     if agent_action.tool == "get_service_quality_in_area":
-        # Only run this node for specific tools which dont require HITL. 
-        # For HITL, we conditionally go to phone_hitl_node        
-
         output = tool_executor.invoke(agent_action)
         return{"phone_agent_intermediate_steps" : [(agent_action, str(output))]}

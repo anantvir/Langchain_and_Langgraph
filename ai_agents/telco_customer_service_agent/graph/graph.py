@@ -2,18 +2,20 @@ from langgraph.graph import StateGraph, END, START
 from state import EntryGraphState, PhoneGraphState, InternetGraphState, IotGraphState
 from nodes.categorize_node import categorize
 from nodes.sentiment_node import identify_sentiment
+from nodes.transfer_to_human import transfer_to_human
 from nodes.phone_reason_node import phone_reason_node
 from nodes.internet_reason_node import internet_reason_node
 from nodes.phone_act_node import execute_phone_tools
 from nodes.phone_hitl_node import execute_phone_hitl_tools
+from nodes.internet_hitl_node import execute_internet_hitl_tools
 from nodes.internet_act_node import execute_internet_tools
 from nodes.iot_reason_node import iot_reason_node
 from nodes.iot_act_node import iot_act_node_execute_tools
 from langchain_core.agents import AgentAction, AgentFinish
 from constants import (
                 CATEGORIZE, SENTIMENT, PHONE_REASON, PHONE_ACT, PHONE_REACT_AGENT,PHONE_ACT_HITL,
-                INTERNET_REASON, INTERNET_ACT, INTERNET_REACT_AGENT,
-                IOT_REASON, IOT_ACT, IOT_REACT_AGENT)
+                INTERNET_REASON, INTERNET_ACT, INTERNET_REACT_AGENT,INTERNET_ACT_HITL,
+                IOT_REASON, IOT_ACT, IOT_REACT_AGENT, HUMAN)
 import sqlite3
 from langgraph.checkpoint.sqlite import SqliteSaver
 
@@ -38,9 +40,16 @@ def should_go_to_phone_hitl_node(state : PhoneGraphState):
 
 def should_internet_reasoning_continue(state : InternetGraphState):
     if isinstance(state["internet_agent_outcome"], AgentAction):
-        return INTERNET_ACT
+        return "run INTERNET_ACT node"
     elif isinstance(state["internet_agent_outcome"], AgentFinish):
-        return END  
+        return "run END node"
+
+def should_go_to_internet_hitl_node(state : InternetGraphState):
+    if isinstance(state["internet_agent_outcome"], AgentAction):
+        if state["internet_agent_outcome"].tool == "access_crm_tool":
+            return "call INTERNET_ACT_HITL node"
+    else:
+        return "call INTERNET_REASON node"   
     
 def should_iot_reasoning_continue(state : IotGraphState):
     if isinstance(state["iot_agent_outcome"], AgentAction):
@@ -56,6 +65,8 @@ def add_conditonal_edge_from_sentiment(state : EntryGraphState):
         return "run INTERNET_REACT_AGENT node"
     elif category.lower() == "iot":
         return "run IOT_REACT_AGENT node"
+    elif state["sentiment"] == "4" or "5":
+        return "transfer to human"
 
 # subgraph for Phone
 phone_subgraph = StateGraph(PhoneGraphState)
@@ -73,7 +84,7 @@ phone_subgraph.add_conditional_edges(PHONE_ACT, should_go_to_phone_hitl_node,
                                          "call PHONE_REASON node" : PHONE_REASON
                                      })
 #phone_subgraph.add_edge(PHONE_ACT, PHONE_REASON)
-phone_subgraph.add_edge(PHONE_ACT_HITL, PHONE_ACT)
+phone_subgraph.add_edge(PHONE_ACT_HITL, PHONE_REASON)
 phone_subgraph.set_entry_point(PHONE_REASON)
 
 # subgraph for Internet
@@ -81,10 +92,21 @@ internet_subgraph = StateGraph(InternetGraphState)
 # Add nodes for Internet
 internet_subgraph.add_node(INTERNET_REASON, internet_reason_node)
 internet_subgraph.add_node(INTERNET_ACT, execute_internet_tools)
+internet_subgraph.add_node(INTERNET_ACT_HITL, execute_internet_hitl_tools)
 internet_subgraph.set_entry_point(INTERNET_REASON)
 # Add edges for Internet
-internet_subgraph.add_edge(INTERNET_ACT, INTERNET_REASON)
-internet_subgraph.add_conditional_edges(INTERNET_REASON, should_internet_reasoning_continue)
+#internet_subgraph.add_edge(INTERNET_ACT, INTERNET_REASON)
+internet_subgraph.add_conditional_edges(INTERNET_REASON, should_internet_reasoning_continue,
+                                        path_map={
+                                            "run INTERNET_ACT node" : INTERNET_ACT,
+                                            "run END node" : END
+                                        })
+internet_subgraph.add_conditional_edges(INTERNET_ACT, should_go_to_internet_hitl_node,
+                                     path_map={
+                                         "call INTERNET_ACT_HITL node" : INTERNET_ACT_HITL,
+                                         "call INTERNET_REASON node" : INTERNET_REASON
+                                     })
+internet_subgraph.add_edge(INTERNET_ACT_HITL, INTERNET_REASON)
 
 # subgraph for Iot
 iot_subgraph = StateGraph(IotGraphState)
@@ -103,6 +125,7 @@ entry_graph.add_node(SENTIMENT, identify_sentiment)
 entry_graph.add_node(PHONE_REACT_AGENT, phone_subgraph.compile())
 entry_graph.add_node(INTERNET_REACT_AGENT, internet_subgraph.compile())
 entry_graph.add_node(IOT_REACT_AGENT, iot_subgraph.compile())
+entry_graph.add_node(HUMAN, transfer_to_human)
 
 # Add edges
 entry_graph.add_edge(START, CATEGORIZE)
@@ -113,7 +136,8 @@ entry_graph.add_conditional_edges(SENTIMENT,
                                   path_map={
                                       "run PHONE_REACT_AGENT node" : PHONE_REACT_AGENT,
                                       "run INTERNET_REACT_AGENT node" : INTERNET_REACT_AGENT,
-                                      "run IOT_REACT_AGENT node" : IOT_REACT_AGENT
+                                      "run IOT_REACT_AGENT node" : IOT_REACT_AGENT,
+                                      "transfer to human" : HUMAN
                                   })
 entry_graph.add_edge(INTERNET_REACT_AGENT, END)
 entry_graph.add_edge(IOT_REACT_AGENT, END)
@@ -121,7 +145,7 @@ entry_graph.add_edge(IOT_REACT_AGENT, END)
 entry_flow = entry_graph.compile(checkpointer = memory)
 
 entry_flow.get_graph(xray=1).draw_mermaid_png(output_file_path="/Users/anantvirsingh/Desktop/langchain-and-langgraph/ai_agents/telco_customer_service_agent/agent_architecture_hitl.png")
-#print(phone_subgraph.compile().get_graph().draw_mermaid())
+print(entry_flow.get_graph().draw_mermaid())
 
 if __name__ == '__main__':
     print("Entering Langgraph ReAct agent ...")
